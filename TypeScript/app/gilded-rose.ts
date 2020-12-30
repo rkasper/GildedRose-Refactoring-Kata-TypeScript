@@ -55,50 +55,62 @@ export class GildedRose {
                 } else {
                     item.quality = minQuality;
                 }
+            } else if (item.name == sulfuras) {
+                // "Sulfuras", being a legendary item, never has to be sold or decreases in Quality
             } else {
-                if (item.name != agedBrie && item.name != backstagePasses) {
-                    if (item.quality > minQuality) {
-                        if (item.name != sulfuras) {
-                            item.quality--
-                        }
-                    }
-                } else {
-                    if (item.quality < maxQuality) {
-                        item.quality++
-                        if (item.name == backstagePasses) {
-                            if (this.concertHappeningSoon(item)) {
-                                if (item.quality < maxQuality) {
-                                    item.quality++
-                                }
-                            }
-                            if (this.concertHappeningEvenSooner(item)) {
-                                if (item.quality < maxQuality) {
-                                    item.quality++
-                                }
-                            }
-                        }
-                    }
-                }
-                if (item.name != sulfuras) {
-                    item.sellIn--;
-                }
+                item.sellIn--;
+
                 if (item.sellIn < minSellIn) {
-                    if (item.name != agedBrie) {
-                        if (item.name != backstagePasses) {
-                            if (item.quality > minQuality) {
-                                if (item.name != sulfuras) {
-                                    item.quality--
-                                }
-                            }
-                        } else {
-                            item.quality = minQuality
-                        }
-                    } else {
-                        if (item.quality < maxQuality) {
-                            item.quality++
-                        }
-                    }
+                    item.quality -= 2;
+                } else {
+                    item.quality--;
                 }
+                if (item.quality < minQuality) {
+                    item.quality = minQuality;
+                }
+                // if (item.name != agedBrie && item.name != backstagePasses) {
+                //     if (item.quality > minQuality) {
+                //         if (item.name != sulfuras) {
+                //             item.quality--
+                //         }
+                //     }
+                // } else {
+                //     if (item.quality < maxQuality) {
+                //         item.quality++
+                //         if (item.name == backstagePasses) {
+                //             if (this.concertHappeningSoon(item)) {
+                //                 if (item.quality < maxQuality) {
+                //                     item.quality++
+                //                 }
+                //             }
+                //             if (this.concertHappeningEvenSooner(item)) {
+                //                 if (item.quality < maxQuality) {
+                //                     item.quality++
+                //                 }
+                //             }
+                //         }
+                //     }
+                // }
+                // if (item.name != sulfuras) {
+                //     item.sellIn--;
+                // }
+                // if (item.sellIn < minSellIn) {
+                //     if (item.name != agedBrie) {
+                //         if (item.name != backstagePasses) {
+                //             if (item.quality > minQuality) {
+                //                 if (item.name != sulfuras) {
+                //                     item.quality--
+                //                 }
+                //             }
+                //         } else {
+                //             item.quality = minQuality
+                //         }
+                //     } else {
+                //         if (item.quality < maxQuality) {
+                //             item.quality++
+                //         }
+                //     }
+                // }
             }
         }
 
