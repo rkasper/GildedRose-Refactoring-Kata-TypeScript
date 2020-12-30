@@ -96,4 +96,12 @@ describe('Gilded Rose', function () {
         expect(items[0].sellIn).to.equal(-1);
         expect(items[0].quality).to.equal(0);
     });
+
+    // Another pin-down test for complete code-coverage
+    it('"Aged Brie" goes up in quality all the way to 50', function() {
+        const gildedRose = new GildedRose([ new Item('Aged Brie', 0, 48) ]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].sellIn).to.equal(-1);
+        expect(items[0].quality).to.equal(50);
+    });
 });
