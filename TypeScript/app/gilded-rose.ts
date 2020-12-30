@@ -25,20 +25,20 @@ export class GildedRose {
         this.items = items;
     }
 
-    updateQuality() {
+    updateInventory(): Array<Item> {
         for (let i = 0; i < this.items.length; i++) {
             let item: Item = this.items[i];
-            this.handleAgedBrie(item);
-            this.handleBackstagePasses(item);
-            this.handleSulfuras(item);
-            this.handleNormalItem(item);
+            GildedRose.handleAgedBrie(item);
+            GildedRose.handleBackstagePasses(item);
+            GildedRose.handleSulfuras(item);
+            GildedRose.handleNormalItem(item);
         }
 
         return this.items;
     }
 
-    private handleNormalItem(item: Item) {
-        if (this.isNormalItem(item)) {
+    private static handleNormalItem(item: Item) {
+        if (GildedRose.isNormalItem(item)) {
             item.sellIn--;
 
             if (item.sellIn < minSellIn) {
@@ -52,25 +52,25 @@ export class GildedRose {
         }
     }
 
-    private isNormalItem(item: Item) {
+    private static isNormalItem(item: Item) {
         return item.name != agedBrie && item.name != backstagePasses && item.name != sulfuras;
     }
 
-    private handleSulfuras(item: Item) {
+    private static handleSulfuras(item: Item) {
         if (item.name == sulfuras) {
             // "Sulfuras", being a legendary item, never has to be sold or decreases in Quality
         }
     }
 
-    private handleBackstagePasses(item: Item) {
+    private static handleBackstagePasses(item: Item) {
         if (item.name == backstagePasses) {
             item.sellIn--;
 
-            if (this.concertHappeningEvenSooner(item)) {
+            if (GildedRose.concertHappeningEvenSooner(item)) {
                 if (item.quality < maxQuality) {
                     item.quality += 3;
                 }
-            } else if (this.concertHappeningSoon(item)) {
+            } else if (GildedRose.concertHappeningSoon(item)) {
                 if (item.quality < maxQuality) {
                     item.quality += 2;
                 }
@@ -82,7 +82,7 @@ export class GildedRose {
         }
     }
 
-    private handleAgedBrie(item: Item) {
+    private static handleAgedBrie(item: Item) {
         if (item.name == agedBrie) {
             item.sellIn--;
             if (item.sellIn < minSellIn) {
@@ -96,11 +96,11 @@ export class GildedRose {
         }
     }
 
-    private concertHappeningEvenSooner(item: Item) {
+    private static concertHappeningEvenSooner(item: Item) {
         return item.sellIn < 6 && item.sellIn >= minSellIn;
     }
 
-    private concertHappeningSoon(item: Item) {
+    private static concertHappeningSoon(item: Item) {
         return item.sellIn < 11 && item.sellIn >= 6;
     }
 }
