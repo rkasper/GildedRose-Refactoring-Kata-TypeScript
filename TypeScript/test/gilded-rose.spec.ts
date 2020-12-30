@@ -90,7 +90,7 @@ describe('Gilded Rose', function () {
     });
 
     // Quality [of backstage passes] drops to 0 after the concert
-    it('uality [of backstage passes] drops to 0 after the concert', function() {
+    it('Quality [of backstage passes] drops to 0 after the concert', function() {
         const gildedRose = new GildedRose([ new Item('Backstage passes to a TAFKAL80ETC concert', 0, 31) ]);
         const items = gildedRose.updateQuality();
         expect(items[0].sellIn).to.equal(-1);

@@ -39,6 +39,22 @@ export class GildedRose {
                 if (item.quality > maxQuality) {
                     item.quality = maxQuality;
                 }
+            } else if (item.name == backstagePasses) {
+                item.sellIn--;
+
+                if (this.concertHappeningEvenSooner(item)) {
+                    if (item.quality < maxQuality) {
+                        item.quality += 3;
+                    }
+                } else if (this.concertHappeningSoon(item)) {
+                    if (item.quality < maxQuality) {
+                        item.quality += 2;
+                    }
+                } else if (item.sellIn >= minSellIn) {
+                    item.quality++;
+                } else {
+                    item.quality = minQuality;
+                }
             } else {
                 if (item.name != agedBrie && item.name != backstagePasses) {
                     if (item.quality > minQuality) {
@@ -90,10 +106,10 @@ export class GildedRose {
     }
 
     private concertHappeningEvenSooner(item: Item) {
-        return item.sellIn < 6;
+        return item.sellIn < 6 && item.sellIn >= minSellIn;
     }
 
     private concertHappeningSoon(item: Item) {
-        return item.sellIn < 11;
+        return item.sellIn < 11 && item.sellIn >= 6;
     }
 }
