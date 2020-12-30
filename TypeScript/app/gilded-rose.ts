@@ -26,13 +26,12 @@ export class GildedRose {
     }
 
     updateInventory(): Array<Item> {
-        for (let i = 0; i < this.items.length; i++) {
-            let item: Item = this.items[i];
+        this.items.forEach(item => {
             GildedRose.handleAgedBrie(item);
             GildedRose.handleBackstagePasses(item);
             GildedRose.handleSulfuras(item);
             GildedRose.handleNormalItem(item);
-        }
+        });
 
         return this.items;
     }
