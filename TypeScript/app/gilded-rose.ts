@@ -10,6 +10,16 @@ export class Item {
     }
 }
 
+const agedBrie: string = 'Aged Brie';
+const backstagePasses: string = 'Backstage passes to a TAFKAL80ETC concert';
+const sulfuras: string = 'Sulfuras, Hand of Ragnaros';
+
+const maxQuality: number = 50;
+
+const minQuality = 0;
+
+const minSellIn = 0;
+
 export class GildedRose {
     items: Array<Item>;
 
@@ -19,51 +29,60 @@ export class GildedRose {
 
     updateQuality() {
         for (let i = 0; i < this.items.length; i++) {
-            if (this.items[i].name != 'Aged Brie' && this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-                if (this.items[i].quality > 0) {
-                    if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-                        this.items[i].quality = this.items[i].quality - 1
+            let item: Item = this.items[i];
+            if (item.name != agedBrie && item.name != backstagePasses) {
+                if (item.quality > minQuality) {
+                    if (item.name != sulfuras) {
+                        item.quality--
                     }
                 }
             } else {
-                if (this.items[i].quality < 50) {
-                    this.items[i].quality = this.items[i].quality + 1
-                    if (this.items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
-                        if (this.items[i].sellIn < 11) {
-                            if (this.items[i].quality < 50) {
-                                this.items[i].quality = this.items[i].quality + 1
+                if (item.quality < maxQuality) {
+                    item.quality++
+                    if (item.name == backstagePasses) {
+                        if (this.concertHappeningSoon(item)) {
+                            if (item.quality < maxQuality) {
+                                item.quality++
                             }
                         }
-                        if (this.items[i].sellIn < 6) {
-                            if (this.items[i].quality < 50) {
-                                this.items[i].quality = this.items[i].quality + 1
+                        if (this.concertHappeningEvenSooner(item)) {
+                            if (item.quality < maxQuality) {
+                                item.quality++
                             }
                         }
                     }
                 }
             }
-            if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-                this.items[i].sellIn = this.items[i].sellIn - 1;
+            if (item.name != sulfuras) {
+                item.sellIn--;
             }
-            if (this.items[i].sellIn < 0) {
-                if (this.items[i].name != 'Aged Brie') {
-                    if (this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-                        if (this.items[i].quality > 0) {
-                            if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-                                this.items[i].quality = this.items[i].quality - 1
+            if (item.sellIn < minSellIn) {
+                if (item.name != agedBrie) {
+                    if (item.name != backstagePasses) {
+                        if (item.quality > minQuality) {
+                            if (item.name != sulfuras) {
+                                item.quality--
                             }
                         }
                     } else {
-                        this.items[i].quality = this.items[i].quality - this.items[i].quality
+                        item.quality = minQuality
                     }
                 } else {
-                    if (this.items[i].quality < 50) {
-                        this.items[i].quality = this.items[i].quality + 1
+                    if (item.quality < maxQuality) {
+                        item.quality++
                     }
                 }
             }
         }
 
         return this.items;
+    }
+
+    private concertHappeningEvenSooner(item: Item) {
+        return item.sellIn < 6;
+    }
+
+    private concertHappeningSoon(item: Item) {
+        return item.sellIn < 11;
     }
 }
