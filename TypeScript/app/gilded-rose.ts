@@ -68,49 +68,6 @@ export class GildedRose {
                 if (item.quality < minQuality) {
                     item.quality = minQuality;
                 }
-                // if (item.name != agedBrie && item.name != backstagePasses) {
-                //     if (item.quality > minQuality) {
-                //         if (item.name != sulfuras) {
-                //             item.quality--
-                //         }
-                //     }
-                // } else {
-                //     if (item.quality < maxQuality) {
-                //         item.quality++
-                //         if (item.name == backstagePasses) {
-                //             if (this.concertHappeningSoon(item)) {
-                //                 if (item.quality < maxQuality) {
-                //                     item.quality++
-                //                 }
-                //             }
-                //             if (this.concertHappeningEvenSooner(item)) {
-                //                 if (item.quality < maxQuality) {
-                //                     item.quality++
-                //                 }
-                //             }
-                //         }
-                //     }
-                // }
-                // if (item.name != sulfuras) {
-                //     item.sellIn--;
-                // }
-                // if (item.sellIn < minSellIn) {
-                //     if (item.name != agedBrie) {
-                //         if (item.name != backstagePasses) {
-                //             if (item.quality > minQuality) {
-                //                 if (item.name != sulfuras) {
-                //                     item.quality--
-                //                 }
-                //             }
-                //         } else {
-                //             item.quality = minQuality
-                //         }
-                //     } else {
-                //         if (item.quality < maxQuality) {
-                //             item.quality++
-                //         }
-                //     }
-                // }
             }
         }
 
