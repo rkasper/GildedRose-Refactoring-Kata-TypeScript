@@ -28,50 +28,72 @@ export class GildedRose {
     updateQuality() {
         for (let i = 0; i < this.items.length; i++) {
             let item: Item = this.items[i];
-
-            if (item.name == agedBrie) {
-                item.sellIn--;
-                if (item.sellIn < minSellIn) {
-                    item.quality += 2;
-                } else {
-                    item.quality++;
-                }
-                if (item.quality > maxQuality) {
-                    item.quality = maxQuality;
-                }
-            } else if (item.name == backstagePasses) {
-                item.sellIn--;
-
-                if (this.concertHappeningEvenSooner(item)) {
-                    if (item.quality < maxQuality) {
-                        item.quality += 3;
-                    }
-                } else if (this.concertHappeningSoon(item)) {
-                    if (item.quality < maxQuality) {
-                        item.quality += 2;
-                    }
-                } else if (item.sellIn >= minSellIn) {
-                    item.quality++;
-                } else {
-                    item.quality = minQuality;
-                }
-            } else if (item.name == sulfuras) {
-                // "Sulfuras", being a legendary item, never has to be sold or decreases in Quality
-            } else {
-                item.sellIn--;
-
-                if (item.sellIn < minSellIn) {
-                    item.quality -= 2;
-                } else {
-                    item.quality--;
-                }
-                if (item.quality < minQuality) {
-                    item.quality = minQuality;
-                }
-            }
+            this.handleAgedBrie(item);
+            this.handleBackstagePasses(item);
+            this.handleSulfuras(item);
+            this.handleNormalItem(item);
         }
 
         return this.items;
+    }
+
+    private handleNormalItem(item: Item) {
+        if (this.isNormalItem(item)) {
+            item.sellIn--;
+
+            if (item.sellIn < minSellIn) {
+                item.quality -= 2;
+            } else {
+                item.quality--;
+            }
+            if (item.quality < minQuality) {
+                item.quality = minQuality;
+            }
+        }
+    }
+
+    private isNormalItem(item: Item) {
+        return item.name != agedBrie && item.name != backstagePasses && item.name != sulfuras;
+    }
+
+    private handleSulfuras(item: Item) {
+        if (item.name == sulfuras) {
+            // "Sulfuras", being a legendary item, never has to be sold or decreases in Quality
+        }
+    }
+
+    private handleBackstagePasses(item: Item) {
+        if (item.name == backstagePasses) {
+            item.sellIn--;
+
+            if (this.concertHappeningEvenSooner(item)) {
+                if (item.quality < maxQuality) {
+                    item.quality += 3;
+                }
+            } else if (this.concertHappeningSoon(item)) {
+                if (item.quality < maxQuality) {
+                    item.quality += 2;
+                }
+            } else if (item.sellIn >= minSellIn) {
+                item.quality++;
+            } else {
+                item.quality = minQuality;
+            }
+        }
+    }
+
+    private handleAgedBrie(item: Item) {
+        if (item.name == agedBrie) {
+            item.sellIn--;
+            if (item.sellIn < minSellIn) {
+                item.quality += 2;
+            } else {
+                item.quality++;
+            }
+            if (item.quality > maxQuality) {
+                item.quality = maxQuality;
+            }
+        }
     }
 
     private concertHappeningEvenSooner(item: Item) {
